@@ -10,6 +10,5 @@ Los refranes son una parte esencial de la cultura y herencia dominicana. Refleja
 
 - 📚 Colección de proverbios y dichos dominicanos auténticos
 - 🏷️ Organizados por categorías y temas
-- 💬 Explicaciones y contexto para cada refrain
-- 🌐 Soporte para múltiples idiomas
+- 💬 Explicaciones y contexto para cada refrán
 - 📖 Fácil de navegar y consultar
