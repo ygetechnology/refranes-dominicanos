@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Refranes Dominicanos 🇩🇴</title>
+<meta name="theme-color" content="#002F6C"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Refranes RD"/>
+<meta name="description" content="La sabiduría popular dominicana en tu bolsillo. 150 refranes, estadísticas y juego de trivia."/>
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Refranes+Dominicanos%22%2C%22short_name%22%3A%22Refranes+RD%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23002F6C%22%2C%22theme_color%22%3A%22%23002F6C%22%2C%22icons%22%3A%5B%5D%7D"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  /* Colores Patrios y Caribeños más vibrantes */
+  --g:#002F6C;     /* Azul Ultramar Dominicano */
+  --gl:#CE1126;    /* Rojo Bermellón Dominicano */
+  --gd:#001A3E;    /* Azul Profundo para contrastes oscuros */
+  --accent:#FFB300; /* Oro Viejo / Sol del Caribe */
+  --bg:#F4F6F9;    /* Fondo limpio platino */
+  --card:#fff;
+  --text:#0A192F;
+  --muted:#5C6B73;
+  --border:rgba(0,47,108,.08);
+  --r:18px;--rs:10px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+@media(prefers-color-scheme:dark){:root{--bg:#08121E;--card:#102238;--text:#F0F4F8;--muted:#A0AEC0;--border:rgba(255,255,255,.08)}}
+html,body,#app{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;max-width:430px;margin:0 auto}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+button:active{transform:scale(0.96)}
+::-webkit-scrollbar{width:0}
+/* SPLASH DE LA BANDERA */
+#splash{position:fixed;inset:0;z-index:999;background:linear-gradient(135deg, var(--g) 0%, var(--g) 45%, #fff 45%, #fff 55%, var(--gl) 55%, var(--gl) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .5s}
+#splash.hide{opacity:0;pointer-events:none}
+#splash .flag{font-size:80px;animation:pulse 1.2s ease infinite;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+#splash h1{color:#fff;font-size:26px;font-weight:800;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,0.5);background:rgba(0,0,0,0.2);padding:4px 16px;border-radius:20px}
+#splash p{color:#fff;font-size:14px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.4)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+/* HEADER CON GRADIENTE DE LA BANDERA */
+.hdr{background:linear-gradient(135deg, var(--g), var(--gl));color:#fff;padding-top:calc(var(--safe-top) + 12px);flex-shrink:0;box-shadow:0 4px 15px rgba(0,0,0,.15)}
+.hdr-top{display:flex;align-items:center;gap:8px;padding:0 16px 10px}
+.hdr-title{font-size:20px;font-weight:800;flex:1;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.hdr-cnt{font-size:12px;font-weight:600;color:var(--accent);background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px;backdrop-filter:blur(5px)}
+/* TABS */
+.tabs{display:flex;border-top:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,0.1)}
+.tab{flex:1;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(255,255,255,.65);font-size:11px;transition:color .2s,background .2s}
+.tab:active{transform:scale(1);background:rgba(255,255,255,.1)}
+.tab.on{color:var(--accent);background:rgba(0,0,0,.15);font-weight:600}
+.ti{font-size:20px}.tl{font-size:10px;letter-spacing:.3px}
+/* MAIN */
+.main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--safe-bottom)+16px)}
+.tc{padding:16px;display:flex;flex-direction:column;gap:12px;animation:sU .35s ease both}
+@keyframes sU{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* BANNER DIARIO */
+.day-banner{background:linear-gradient(135deg, #FF9100, #E65100);border-radius:var(--rs);padding:9px 14px;text-align:center;color:#fff;font-size:13px;font-weight:700;letter-spacing:.5px;box-shadow:0 3px 8px rgba(230,81,0,0.2)}
+/* TARJETAS */
+.rcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s, box-shadow .15s;user-select:none;box-shadow:0 4px 12px rgba(0,47,108,0.04)}
+.rcard:active{transform:scale(0.98);box-shadow:0 2px 6px rgba(0,47,108,0.02)}
+.rcard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.chip{font-size:12px;padding:5px 12px;border-radius:20px;font-weight:600;text-transform: capitalize;letter-spacing:.3px}
+.rtexto{font-size:20px;font-weight:700;line-height:1.5;text-align:center;padding:10px 0 16px;color:var(--g)}
+@media(prefers-color-scheme:dark){.rtexto{color:#fff}}
+.rsig{margin-top:4px;animation:fi .3s ease both}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.sdiv{height:2px;background:linear-gradient(90deg, transparent, var(--accent), transparent);margin-bottom:14px}
+.stext{font-size:15px;color:var(--text);line-height:1.6;text-align:center;font-weight:500}
+.chint{font-size:11px;color:var(--gl);font-weight:600;text-align:center;opacity:.85;margin-top:8px;letter-spacing:.3px}
+.abar{position:absolute;bottom:0;left:0;right:0;height:5px}
+/* FAVORITOS BUTTON */
+.fbtn{font-size:22px;padding:4px;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;transition:transform .2s;background:rgba(206,17,38,0.05)}
+.fbtn:active,.fbtn.on{animation:pop .3s ease}
+.fbtn.on{background:rgba(206,17,38,0.1)}
+.fbtn.sm{font-size:16px;width:30px;height:30px}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
+/* TRIVIA */
+.triv-q{font-size:20px;font-weight:700;text-align:center;padding:15px 0;line-height:1.5;color:var(--g)}
+@media(prefers-color-scheme:dark){.triv-q{color:#fff}}
+.triv-blank{color:var(--gl);border-bottom:3px dashed var(--gl);padding:0 8px;font-style:normal}
+.triv-opts{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.triv-opt{background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:14px 16px;text-align:left;font-size:15px;font-weight:600;transition:all .2s;color:var(--text);box-shadow:0 2px 5px rgba(0,0,0,0.02)}
+.triv-opt:active{background:rgba(0,47,108,0.05)}
+.triv-opt.correct{background:#E8F5E9;border-color:#2E7D32;color:#2E7D32;box-shadow:0 3px 8px rgba(46,125,50,0.15)}
+.triv-opt.wrong{background:#FFEBEE;border-color:#C62828;color:#C62828;box-shadow:0 3px 8px rgba(198,40,40,0.15)}
+/* CONTROLES / BOTONES */
+.ctrls{display:flex;gap:8px}
+.cbtn{flex:1;padding:14px 10px;border-radius:var(--rs);font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;transition:transform .15s,opacity .15s;box-shadow:0 3px 8px rgba(0,0,0,0.05)}
+.cbtn.pri{background:linear-gradient(135deg, var(--gl), #9E0C1B);color:#fff;flex:1.5;box-shadow:0 4px 10px rgba(206,17,38,0.25)}
+.cbtn.sec{background:var(--card);color:var(--g);border:1.5px solid var(--g)}
+@media(prefers-color-scheme:dark){.cbtn.sec{border-color:var(--muted);color:#fff}}
+.cbtn:active{transform:scale(0.97);opacity:.9}
+.rbtn{width:100%;padding:12px;border-radius:var(--rs);font-size:14px;font-weight:700;color:var(--g);border:2px dashed var(--g);background:transparent;letter-spacing:.5px;text-transform:uppercase}
+@media(prefers-color-scheme:dark){.rbtn{color:var(--accent);border-color:var(--accent)}}
+/* ESTADISTICAS */
+.srow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.scell{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 3px 6px rgba(0,0,0,0.02)}
+.snum{font-size:24px;font-weight:800;color:var(--g)}
+@media(prefers-color-scheme:dark){.snum{color:var(--accent)}}
+.slbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+/* SEARCH BOX */
+.sbox{background:var(--card);border:1.5px solid var(--g);border-radius:50px;display:flex;align-items:center;padding:0 16px;gap:8px;box-shadow:0 3px 8px rgba(0,47,108,0.05)}
+@media(prefers-color-scheme:dark){.sbox{border-color:var(--border)}}
+.si{font-size:16px;color:var(--g);opacity:.7}
+.sinp{flex:1;border:none;background:transparent;padding:12px 0;font-size:15px;color:var(--text);outline:none;font-family:inherit;font-weight:500}
+.sinp::placeholder{color:var(--muted);opacity:.7}
+/* CATEGORÍAS */
+.cscroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cpill{flex-shrink:0;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;background:var(--card);color:var(--text);border:1.5px solid var(--border);white-space:nowrap;transition:all .15s;box-shadow:0 2px 5px rgba(0,0,0,0.02)}
+.cpill.on{background:var(--g);color:#fff;border-color:var(--g);box-shadow:0 3px 8px rgba(0,47,108,0.25)}
+/* LISTAS */
+.rcnt{font-size:12px;font-weight:600;color:var(--gl);padding-left:4px;text-transform:uppercase;letter-spacing:.5px}
+.slbl2{font-size:12px;color:var(--g);font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding-left:4px}
+.rlist{display:flex;flex-direction:column;background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 12px rgba(0,0,0,0.03)}
+.li{padding:16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.li:active{background:rgba(0,47,108,0.03)}
+.ltxt{flex:1;font-size:15px;font-weight:600;color:var(--text);line-height:1.45}
+.lsig{font-size:14px;color:var(--muted);line-height:1.5;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-weight:500}
+/* LOGROS */
+.lhdr{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(0,0,0,0.02)}
+.ltit{font-size:18px;font-weight:700;color:var(--g)}
+@media(prefers-color-scheme:dark){.ltit{color:#fff}}
+.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;transition:transform .15s;box-shadow:0 2px 6px rgba(0,0,0,0.02)}
+.lcard.done{border-color:var(--gl);background:rgba(206,17,38,.04)}
+/* TOAST RE-ESTILIZADO */
+.toast{position:fixed;bottom:calc(var(--safe-bottom)+24px);left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg, var(--g), var(--gd));color:#fff;padding:14px 24px;border-radius:30px;font-size:14px;font-weight:700;letter-spacing:.3px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:100;white-space:nowrap;box-shadow:0 6px 25px rgba(0,47,108,0.4);border:1px solid rgba(255,255,255,0.1)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* INSTALL BANNER */
+.install-banner{background:linear-gradient(135deg,var(--g),var(--gd));border-radius:var(--rs);padding:14px 16px;display:flex;align-items:center;gap:12px;color:#fff;box-shadow:0 4px 15px rgba(0,47,108,0.25)}
+.ib-btn{background:var(--accent);color:var(--gd);border:none;border-radius:var(--rs);padding:8px 14px;font-size:12px;font-weight:700;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div id="splash"><div class="flag">🇩🇴</div><h1>Refranes Dominicanos</h1><p>Cargando sabiduría criolla…</p></div>
+<div id="app">
+  <header class="hdr">
+    <div class="hdr-top">
+      <span style="font-size:24px">🇩🇴</span>
+      <span class="hdr-title">Refranes RD</span>
+      <span class="hdr-cnt" id="headerCount">150 refranes</span>
+    </div>
+    <nav class="tabs" id="tabBar"></nav>
+  </header>
+  <main class="main" id="main"></main>
+</div>
+<div class="toast" id="toast">¡Copiado! Comparte la sabiduría 🇩🇴</div>
+
+<script>
+// ── DATA (150 REFRANES COMPLETOS) ──
+const REFRANES=[
+{id:1,texto:"Camarón que se duerme, se lo lleva la corriente.",sig:"El que no está atento pierde sus oportunidades.",cat:"trabajo",emoji:"🦐"},
+{id:2,texto:"Al que madruga, Dios lo ayuda.",sig:"Levantarse temprano y ser diligente trae buenos resultados.",cat:"trabajo",emoji:"🌅"},
+{id:3,texto:"Más vale malo conocido que bueno por conocer.",sig:"Es mejor quedarse con lo seguro que arriesgarse en lo desconocido.",cat:"vida",emoji:"🤝"},
+{id:4,texto:"Barriga llena, corazón contento.",sig:"Cuando uno está satisfecho físicamente, el ánimo mejora.",cat:"vida",emoji:"🍽️"},
+{id:5,texto:"El que no llora, no mama.",sig:"Hay que pedir lo que uno necesita porque nadie adivina.",cat:"familia",emoji:"👶"},
+{id:6,texto:"Dime con quién andas y te diré quién eres.",sig:"Las compañías que uno escoge dicen mucho de su carácter.",cat:"amistad",emoji:"👥"},
+{id:7,texto:"No hay mal que por bien no venga.",sig:"De las situaciones difíciles siempre se saca algún aprendizaje.",cat:"vida",emoji:"🌈"},
+{id:8,texto:"Ojos que no ven, corazón que no siente.",sig:"Lo que uno no conoce no le causa dolor ni preocupación.",cat:"amor",emoji:"👁️"},
+{id:9,texto:"El que mucho abarca, poco aprieta.",sig:"Quien quiere hacer demasiado termina sin hacer nada bien.",cat:"trabajo",emoji:"🎯"},
+{id:10,texto:"A palabras necias, oídos sordos.",sig:"Hay que ignorar los comentarios vacíos y sin sentido.",cat:"sabiduría",emoji:"🙉"},
+{id:11,texto:"Cada quien con su cada cual.",sig:"Todos deben relacionarse con personas de su mismo nivel.",cat:"familia",emoji:"🏠"},
+{id:12,texto:"El muerto y el arrimado a los tres días apestan.",sig:"Las visitas y los parientes que se quedan mucho tiempo cansan.",cat:"familia",emoji:"😅"},
+{id:13,texto:"Árbol que crece torcido, jamás su tronco endereza.",sig:"Los malos hábitos adquiridos de joven son difíciles de corregir.",cat:"sabiduría",emoji:"🌳"},
+{id:14,texto:"Agua que no has de beber, déjala correr.",sig:"No te metas en lo que no te corresponde.",cat:"vida",emoji:"💧"},
+{id:15,texto:"No hay peor ciego que el que no quiere ver.",sig:"La persona más ignorante es quien rechaza aprender la verdad.",cat:"sabiduría",emoji:"👓"},
+{id:16,texto:"El que ríe de último, ríe mejor.",sig:"La victoria final importa más que los éxitos temporales.",cat:"amistad",emoji:"😄"},
+{id:17,texto:"En boca cerrada no entran moscas.",sig:"Muchos problemas se evitan si uno sabe cuándo callarse.",cat:"sabiduría",emoji:"🤐"},
+{id:18,texto:"Dios aprieta pero no ahoga.",sig:"Por más difíciles que sean las pruebas, Dios no nos abandona.",cat:"fe",emoji:"🙏"},
+{id:19,texto:"Lo que no mata engorda.",sig:"Las pequeñas adversidades nos hacen más fuertes.",cat:"vida",emoji:"💪"},
+{id:20,texto:"Pueblo chiquito, infierno grande.",sig:"En los lugares pequeños los chismes y conflictos se amplifican.",cat:"vida",emoji:"🏘️"},
+{id:21,texto:"Con la vara que midas serás medido.",sig:"Trata a los demás como quieres que te traten a ti.",cat:"fe",emoji:"⚖️"},
+{id:22,texto:"El que tiene padrino se bautiza.",sig:"Las conexiones y los contactos abren muchas puertas.",cat:"amistad",emoji:"👔"},
+{id:23,texto:"Cuando el río suena, piedras lleva.",sig:"Donde hay rumores, suele haber algo de verdad.",cat:"sabiduría",emoji:"🌊"},
+{id:24,texto:"No hay atajo sin trabajo.",sig:"Para lograr algo de valor, hay que esforzarse sin buscar atajos.",cat:"trabajo",emoji:"🛤️"},
+{id:25,texto:"El amor entra por la cocina.",sig:"La mejor forma de conquistar a alguien es atendiéndolo bien.",cat:"amor",emoji:"❤️"},
+{id:26,texto:"Nadie sabe lo que tiene hasta que lo pierde.",sig:"Valoramos las cosas cuando ya no las tenemos.",cat:"amor",emoji:"💔"},
+{id:27,texto:"Candela que no te quema, no le soples.",sig:"No te metas en problemas que no son tuyos.",cat:"vida",emoji:"🔥"},
+{id:28,texto:"El que a buen árbol se arrima, buena sombra le cobija.",sig:"Rodearse de buenas personas trae protección y beneficios.",cat:"amistad",emoji:"🌿"},
+{id:29,texto:"No todo lo que brilla es oro.",sig:"Las apariencias engañan; hay que ir más allá de lo superficial.",cat:"sabiduría",emoji:"✨"},
+{id:30,texto:"El diablo sabe más por viejo que por diablo.",sig:"La experiencia da una sabiduría que no se aprende en libros.",cat:"sabiduría",emoji:"📚"},
+{id:31,texto:"Más sabe el diablo por viejo que por diablo.",sig:"La experiencia supera cualquier talento natural.",cat:"fe",emoji:"🎓"},
+{id:32,texto:"A Dios rogando y con el mazo dando.",sig:"Hay que rezar pero también actuar para alcanzar lo que se quiere.",cat:"fe",emoji:"⛪"},
+{id:33,texto:"Cría cuervos y te sacarán los ojos.",sig:"Ayudar a los ingratos puede volverse en tu contra.",cat:"familia",emoji:"🐦"},
+{id:34,texto:"Caras vemos, corazones no sabemos.",sig:"No podemos conocer las intenciones de las personas por su apariencia.",cat:"sabiduría",emoji:"🎭"},
+{id:35,texto:"El que no trabaja, no come.",sig:"El esfuerzo propio es la única garantía de sustento.",cat:"trabajo",emoji:"🍌"},
+{id:36,texto:"Donde manda capitán, no manda marinero.",sig:"Hay que respetar la jerarquía y la autoridad establecida.",cat:"trabajo",emoji:"⚓"},
+{id:37,texto:"La sangre llama.",sig:"Los lazos familiares siempre afloran, por muy distantes que sean.",cat:"familia",emoji:"🩸"},
+{id:38,texto:"El hábito no hace al monje.",sig:"La ropa o apariencia no define el carácter de una persona.",cat:"vida",emoji:"👘"},
+{id:39,texto:"No hay peor sordo que el que no quiere oír.",sig:"Quien no quiere escuchar razones es el obstáculo más difícil.",cat:"vida",emoji:"👂"},
+{id:40,texto:"Más vale tarde que nunca.",sig:"Es mejor hacer algo con retraso que no hacerlo jamás.",cat:"vida",emoji:"⏰"},
+{id:41,texto:"A falta de pan, cazabe.",sig:"Hay que conformarse y adaptarse con lo que se tiene a mano.",cat:"vida",emoji:"🫓"},
+{id:42,texto:"El que bota golpe no goza de la fiesta.",sig:"Quien gasta sus energías quejándose no disfruta de lo bueno.",cat:"vida",emoji:"🎉"},
+{id:43,texto:"Mucho ruido y pocas nueces.",sig:"Se hace mucha propaganda por algo que al final es insignificante.",cat:"sabiduría",emoji:"📣"},
+{id:44,texto:"Perro que ladra, no muerde.",sig:"Quienes amenazan mucho suelen ser los que menos actúan.",cat:"amistad",emoji:"🐕"},
+{id:45,texto:"El que da lo que tiene, a pedir se queda.",sig:"No se debe descuidar el patrimonio propio por exceso de generosidad.",cat:"trabajo",emoji:"🤲"},
+{id:46,texto:"Sarna con gusto no pica, y si pica no mortifica.",sig:"Las molestias de algo que elegimos voluntariamente se toleran con gusto.",cat:"amor",emoji:"😅"},
+{id:47,texto:"Mande buey que no mande bueya.",sig:"Denota que el orden tradicional de autoridad debe respetarse.",cat:"familia",emoji:"🐂"},
+{id:48,texto:"Quien siembra vientos, cosecha tempestades.",sig:"Las malas acciones terminan trayendo consecuencias peores.",cat:"vida",emoji:"🌪️"},
+{id:49,texto:"El que se junta con cojo, al año cojea.",sig:"Se terminan adoptando las malas costumbres de las personas cercanas.",cat:"amistad",emoji:"🚶"},
+{id:50,texto:"De tal palo, tal astilla.",sig:"Los hijos suelen parecerse a los padres en comportamiento.",cat:"familia",emoji:"🪵"},
+{id:51,texto:"Cada cabeza es un mundo.",sig:"Cada persona piensa de una forma totalmente diferente y única.",cat:"sabiduría",emoji:"🧠"},
+{id:52,texto:"El flojo trabaja dos veces.",sig:"Hacer las cosas mal por desgano obliga a tener que repetirlas.",cat:"trabajo",emoji:"🥱"},
+{id:53,texto:"La curiosidad mató al gato.",sig:"Meterse en asuntos ajenos o investigar de más puede traer problemas.",cat:"sabiduría",emoji:"🐱"},
+{id:54,texto:"Amor con amor se paga.",sig:"El afecto y los buenos tratos deben ser correspondidos igual.",cat:"amor",emoji:"💝"},
+{id:55,texto:"El que inventó la ley, inventó la trampa.",sig:"Siempre existen formas de evadir las normas establecidas.",cat:"sabiduría",emoji:"📜"},
+{id:56,texto:"Haz bien y no mires a quién.",sig:"Debemos hacer el bien de forma desinterasada a cualquiera.",cat:"fe",emoji:"✨"},
+{id:57,texto:"Guerra avisada no mata soldado.",sig:"Si ya estás advertido de un peligro, no tienes excusa para fallar.",cat:"advertencia",emoji:"🪖"},
+{id:58,texto:"El que se fue para Villa, perdió su silla.",sig:"Al abandonar un puesto o lugar, se pierden sus privileges.",cat:"picaresca",emoji:"🪑"},
+{id:59,texto:"Chivo que rompe tambor, con su pellejo paga.",sig:"El que comete una falta grave paga las consecuencias con su físico.",cat:"advertencia",emoji:"🐐"},
+{id:60,texto:"Estar como cucaracha en baile de gallinas.",sig:"Encontrarse en una situación muy peligrosa o incómoda.",cat:"vida",emoji:"🪳"},
+{id:61,texto:"El que no tiene cabeza, tiene que tener pies.",sig:"El olvidadizo o descuidado trabaja el doble por sus errores.",cat:"trabajo",emoji:"👣"},
+{id:62,texto:"A caballo regalado no se le mira el colmillo.",sig:"Las cosas recibidas gratis no deben ser criticadas.",cat:"vida",emoji:"🐴"},
+{id:63,texto:"No por mucho madrugar amanece más temprano.",sig:"Los procesos llevan su tiempo natural por más prisa que tengas.",cat:"sabiduría",emoji:"⏰"},
+{id:64,texto:"El que busca encuentra.",sig:"La persistencia siempre nos lleva a descubrir realidades.",cat:"vida",emoji:"🔍"},
+{id:65,texto:"Ese es otro cantar.",sig:"Se utiliza cuando una situación cambia radicalmente de contexto.",cat:"vida",emoji:"🎶"},
+{id:66,texto:"A buen entendedor, pocas palabras bastan.",sig:"Una persona inteligente comprende rápido sin explicaciones largas.",cat:"sabiduría",emoji:"💡"},
+{id:67,texto:"Visteme despacio que tengo prisa.",sig:"Hacer las cosas rápido y con apuro suele causar errores molestos.",cat:"trabajo",emoji:"⏱️"},
+{id:68,texto:"Donde hubo fuego, cenizas quedan.",sig:"Los grandes amores o pasiones siempre dejan algún recuerdo.",cat:"amor",emoji:"🔥"},
+{id:69,texto:"Gato escaldado del agua fría huye.",sig:"Quien ha sufrido un daño se vuelve desconfiado en el futuro.",cat:"advertencia",emoji:"🙀"},
+{id:70,texto:"La soga quiebra por lo más delgado.",sig:"Los hilos de los problemas siempre afectan primero a los débiles.",cat:"vida",emoji:"🪢"},
+{id:71,texto:"Un clavo saca otro clavo.",sig:"A veces un nuevo amor o interés ayuda a olvidar el anterior.",cat:"amor",emoji:"🔨"},
+{id:72,texto:"Quien mal anda, mal acaba.",sig:"Vivir fuera de la ley o las buenas costumbres trae mal final.",cat:"advertencia",emoji:"🥀"},
+{id:73,texto:"A lo hecho, pecho.",sig:"Hay que asumir las consecuencias de nuestros actos con valor.",cat:"sabiduría",emoji:"🛡️"},
+{id:74,texto:"Perro viejo latiguea sentado.",sig:"La experiencia permite resolver problemas con el mínimo esfuerzo.",cat:"sabiduría",emoji:"🐕‍🦺"},
+{id:75,texto:"El que siembra su maíz, que se coma su canquiña.",sig:"Cada quien debe disfrutar o sufrir el fruto directo de sus actos.",cat:"trabajo",emoji:"🌽"},
+{id:76,texto:"La ambición rompe el saco.",sig:"Codiciar en exceso puede dejarte sin lo poco que tenías seguro.",cat:"vida",emoji:"💰"},
+{id:77,texto:"Muchos lamer buscan lengua.",sig:"Hay personas que adulan por puro interés personal.",cat:"picaresca",emoji:"👅"},
+{id:78,texto:"Mas vale pájaro en mano que cien volando.",sig:"Es preferible asegurar algo pequeño que soñar con grandezas dudosas.",cat:"suerte",emoji:"🐦"},
+{id:79,texto:"Mal de muchos, consuelo de tontos.",sig:"Que otros sufran el mismo problema no alivia tu situación real.",cat:"vida",emoji:"🙁"},
+{id:80,texto:"Quien no te conozca, que te compre.",sig:"Se le dice al que intenta aparentar virtudes que no posee.",cat:"picaresca",emoji:"🛍️"},
+{id:81,texto:"El que juega por necesidad, pierde por obligación.",sig:"Arriesgar bienes básicos por desesperación suele terminar muy mal.",cat:"suerte",emoji:"🎲"},
+{id:82,shift:true,texto:"En tierra de ciegos, el tuerto es rey.",sig:"En un entorno de ignorancia, el que sabe un poco destaca fácilmente.",cat:"sabiduría",emoji:"👑"},
+{id:83,texto:"El pez muere por la boca.",sig:"Hablar demasiado o indiscretamente causa nuestra propia ruina.",cat:"advertencia",emoji:"🐟"},
+{id:84,texto:"Quien ríe último, ríe con ventaja.",sig:"Esperar el desenlace real da mejores frutos que celebrar antes.",cat:"picaresca",emoji:"😏"},
+{id:85,texto:"Hacer de tripas corazón.",sig:"Sacar fuerzas y valor de donde no quedan para vencer.",cat:"vida",emoji:"❤️‍🩹"},
+{id:86,texto:"Cada pajarito tiene su librito.",sig:"Cada método personal es válido para lograr objetivos propios.",cat:"sabiduría",emoji:"📖"},
+{id:87,texto:"El oro hace al maestro.",sig:"Tener recursos facilita el perfeccionamiento de cualquier labor.",cat:"trabajo",emoji:"🪙"},
+{id:88,texto:"El que calla, otorga.",sig:"No manifestar oposición ante una idea se toma como aprobación.",cat:"sabiduría",emoji:"🤫"},
+{id:89,texto:"Ladrón que roba a ladrón tiene cien años de perdón.",sig:"Justifica de forma picaresca un desquite contra alguien tramposo.",cat:"picaresca",emoji:"🥷"},
+{id:90,texto:"No dejes para mañana lo que puedas hacer hoy.",sig:"Evita la pereza y cumple tus obligaciones de inmediato.",cat:"trabajo",emoji:"📅"},
+{id:91,texto:"Obras son amores, y no buenas razones.",sig:"Los hechos demuestran el afecto real, no las palabras bonitas.",cat:"amor",emoji:"🧱"},
+{id:92,texto:"Piensa mal y acertarás.",sig:"Ser desconfiado te protege de decepciones con los demás.",cat:"picaresca",emoji:"🧐"},
+{id:93,texto:"Quien bien te quiere, te hará llorar.",sig:"Quien te ama de verdad te corregirá aunque te duela.",cat:"amor",emoji:"😢"},
+{id:94,texto:"Se dice el pecado, pero no el pecador.",sig:"Contar un secreto o chisme protegiendo la identidad ajena.",cat:"picaresca",emoji:"🗣️"},
+{id:95,texto:"Tanto nadar para morir en la orilla.",sig:"Esforzarse muchísimo para fracasar justo al final del camino.",cat:"suerte",emoji:"🏊"},
+{id:96,texto:"Una golondrina no hace verano.",sig:"Un hecho aislado no sirve para establecer una regla fija.",cat:"vida",emoji:"🐦"},
+{id:97,texto:"Zapatero a tus zapatos.",sig:"Cada persona debe opinar solo de las materias que domina.",cat:"trabajo",emoji:"👞"},
+{id:98,texto:"Del dicho al hecho, hay un gran trecho.",sig:"Prometer o decir algo es mucho más fácil que cumplirlo.",cat:"sabiduría",emoji:"🗺️"},
+{id:99,texto:"El que la hace, la paga.",sig:"La justicia tarde o temprano llega para todos los actos.",cat:"fe",emoji:"⚖️"},
+{id:100,texto:"A perro flaco, todo son pulgas.",sig:"A las personas que ya tienen problemas les suelen llover más desgracias.",cat:"suerte",emoji:"🐕"},
+{id:101,texto:"Pulla dada no tiene desquite.",sig:"Una indirecta bien lanzada no se puede borrar ni justificar.",cat:"picaresca",emoji:"🎯"},
+{id:102,texto:"La puerca busca el fango.",sig:"Cada quien termina volviendo al ambiente o hábitos que le gustan.",cat:"campo",emoji:"🐖"},
+{id:103,texto:"El buey que no está acostumbrado al yugo, derriba la carreta.",sig:"Quien no sabe seguir reglas causa desastres cuando le dan responsabilidades.",cat:"campo",emoji:"🐂"},
+{id:104,texto:"Amor de lejos, amor de pendejos.",sig:"Las relaciones a larga distancia son difíciles de mantener estables.",cat:"amor",emoji:"✈️"},
+{id:105,texto:"Mula vieja no aprende paso nuevo.",sig:"Es sumamente difícil cambiar las costumbres de alguien mayor.",cat:"campo",emoji:"🐴"},
+{id:106,texto:"Mucho bodorrio para tan poca comida.",sig:"Se hace demasiado fiesta o bulto para un resultado mediocre.",cat:"picaresca",emoji:"🎪"},
+{id:107,texto:"El gallo bueno canta en cualquier gallinero.",sig:"La persona capaz demuestra su talento sin importar dónde esté.",cat:"campo",emoji:"🐓"},
+{id:108,texto:"Al dedo malo, todo se le pega.",sig:"A quien le va mal, parece que le caen todos los problemas juntos.",cat:"suerte",emoji:"🩹"},
+{id:109,texto:"Estar entre la espada y la pared.",sig:"Encontrarse en una situación extrema sin opciones fáciles.",cat:"vida",emoji:"⚔️"},
+{id:110,texto:"El que tiene boca no dice que no.",sig:"Quien sabe pedir o expresarse consigue siempre lo que quiere.",cat:"picaresca",emoji:"👄"},
+{id:111,texto:"Por la plata baila el mono.",sig:"El dinero es capaz de mover voluntades e intereses rápidamente.",cat:"picaresca",emoji:"🐒"},
+{id:112,texto:"Cuentas claras conservan amistades.",sig:"Llevar los negocios de forma honesta evita perder amigos.",cat:"amistad",emoji:"📊"},
+{id:113,texto:"El puerco gordo no conoce al flaco.",sig:"Quien tiene abundancia rara vez se compadece del necesitado.",cat:"campo",emoji:"🐖"},
+{id:114,texto:"No muerdas la mano que te da de comer.",sig:"Nunca pagues con traición a quien te brindó apoyo económico o moral.",cat:"advertencia",emoji:"💥"},
+{id:115,texto:"A chillido de puerco, oídos de carnicero.",sig:"No hay que hacer caso a las quejas impertinentes de los malos perdedores.",cat:"campo",emoji:"🐷"},
+{id:116,texto:"El flojo y el mezquino andan el camino dos veces.",sig:"Hacer las cosas con tacañería o pereza obliga a corregirlas luego.",cat:"trabajo",emoji:"🐌"},
+{id:117,texto:"Tirar la piedra y esconder la mano.",sig:"Hacer daño de forma anónima o hipócrita y luego simular inocencia.",cat:"picaresca",emoji:"🪨"},
+{id:118,texto:"Junta de lobos, muerte de ovejas.",sig:"Cuando personas con malas intenciones se asocian, alguien sale perjudicado.",cat:"advertencia",emoji:"🐺"},
+{id:119,texto:"Mono sabe qué palo trepa.",sig:"La gente con malas intenciones sabe bien con quién puede meterse y con quién no.",cat:"picaresca",emoji:"🐒"},
+{id:120,texto:"El que siembra en tierra ajena, pierde la semilla y la cosecha.",sig:"Invertir tiempo o recursos en lo que no te pertenece no da frutos propios.",cat:"campo",emoji:"🌱"},
+{id:121,texto:"Donde no hay harina, todo es mohina.",sig:"La escasez extrema de dinero en el hogar produce peleas constantes.",cat:"familia",emoji:"🥖"},
+{id:122,texto:"No gastes pólvora en garzas.",sig:"No malgastes esfuerzos ni recursos valiosos en objetivos que no valen la pena.",cat:"advertencia",emoji:"🦜"},
+{id:123,texto:"El que se duerme en los laureles, se lo lleva la corriente.",sig:"Confiar demasiado en éxitos pasados te hace perder el ritmo actual.",cat:"trabajo",emoji:"🌿"},
+{id:124,texto:"A río revuelto, ganancia de pescadores.",sig:"Las personas astutas toman ventaja de las situaciones de caos o crisis.",cat:"picaresca",emoji:"🎣"},
+{id:125,texto:"Hijo de tigre sale pintado.",sig:"Los hijos heredan de manera casi inevitable las conductas de sus padres.",cat:"familia",emoji:"🐅"},
+{id:126,texto:"El que madruga encuentra todo cerrado.",sig:"Una versión irónica que indica que exagerar la prisa tampoco ayuda.",cat:"suerte",emoji:"🔒"},
+{id:127,texto:"Caballo grande, ande o no ande.",sig:"Preferencia superficial por lo ostentoso o grande sobre lo funcional.",cat:"vida",emoji:"🐎"},
+{id:128,texto:"Perro que no camina no encuentra hueso.",sig:"Si te quedas estático y sin iniciativa, jamás conseguirás oportunidades.",cat:"trabajo",emoji:"🐕"},
+{id:129,texto:"El buey manso saca la mejor paja.",sig:"La constancia y la paciencia rinden mejores frutos que la violencia.",cat:"campo",emoji:"🐂"},
+{id:130,texto:"El que limpia el monte, no siempre se come la caza.",sig:"A veces el que hace el trabajo pesado no es quien disfruta los beneficios.",cat:"campo",emoji:"🤠"},
+{id:131,texto:"La gota de agua labra la piedra.",sig:"La persistencia continua logra derribar los obstáculos más duros.",cat:"sabiduría",emoji:"💧"},
+{id:132,texto:"No es oro todo lo que reluce.",sig:"Las apariencias engañan de forma constante; sé precavido.",cat:"advertencia",emoji:"🪙"},
+{id:133,texto:"Cada cual arrima la brasa a su sardina.",sig:"Todo el mundo busca siempre su propio beneficio o interés.",cat:"picaresca",emoji:"🐟"},
+{id:134,texto:"El que no arriesga, no cruza el charco.",sig:"Para lograr cosas importantes es obligatorio vencer los temores.",cat:"suerte",emoji:"🛶"},
+{id:135,texto:"Escoba nueva barre bien.",sig:"Al principio, cualquier empleado o pareja muestra su mejor faceta.",cat:"vida",emoji:"🧹"},
+{id:136,texto:"La ropa sucia se lava en casa.",sig:"Los conflictos de familia o de pareja deben resolverse en privado.",cat:"familia",emoji:"🧺"},
+{id:137,texto:"De noche todos los gatos son pardos.",sig:"En la oscuridad o sin prestar atención, los defectos pasan desapercibidos.",cat:"advertencia",emoji:"🐈‍⬛"},
+{id:138,texto:"Quien adelante no mira, atrás se queda.",sig:"La falta de visión y planificación te condena al estancamiento.",cat:"trabajo",emoji:"🔭"},
+{id:139,texto:"Gallina vieja da buen caldo.",sig:"La experiencia acumulada de los mayores es de alto valor.",cat:"campo",emoji:"🐓"},
+{id:140,texto:"Quien siembra abrojos, recoge espinas.",sig:"Si actúas mal en la vida, recibirás el mismo daño de vuelta.",cat:"fe",emoji:"🌵"},
+{id:141,texto:"El que rompe los platos, los paga.",sig:"El responsable de un daño debe hacerse cargo de su reparación.",cat:"vida",emoji:"🍽️"},
+{id:142,texto:"Cría fama y acuéstate a dormir.",sig:"Una vez ganas una reputación, la gente asumirá que sigues actuando igual.",cat:"vida",emoji:"🛌"},
+{id:143,texto:"Quien busca un amigo sin defectos, se queda solo.",sig:"Hay que aprender a aceptar las imperfecciones de quienes nos rodean.",cat:"amistad",emoji:"🤝"},
+{id:144,texto:"Luz de la calle, oscuridad de su casa.",sig:"Gente amable y desprendida afuera, pero descuidada y dura con su familia.",cat:"familia",emoji:"💡"},
+{id:145,texto:"Hacer leña del árbol caído.",sig:"Aprovecharse de la desgracia de alguien para atacarle o sacar ventaja.",cat:"picaresca",emoji:"🪵"},
+{id:146,texto:"A rey muerto, rey puesto.",sig:"Nadie es indispensable; las vacantes se llenan rápidamente.",cat:"vida",emoji:"👑"},
+{id:147,texto:"Muchos cocineros dañan el caldo.",sig:"Demasiadas personas opinando en un proyecto arruinan el resultado.",cat:"trabajo",emoji:"👨‍🍳"},
+{id:148,texto:"Gallo que no canta tiene algo en la garganta.",sig:"Cuando alguien calla de repente en una conversación, oculta algo sospecho.",cat:"campo",emoji:"🐓"},
+{id:149,texto:"El que a hierro mata, a hierro muere.",sig:"Quien hace daño usando ciertos métodos terminará sufriendo el mismo destino.",cat:"fe",emoji:"⚔️"},
+{id:150,texto:"Nadie es profeta en su propia tierra.",sig:"Suele ser más difícil ganar reconocimiento entre la gente que te vio crecer.",cat:"vida",emoji:"🗺️"}
+];
+
+const CATS=[
+  {id:"todos",label:"Todos",emoji:"🇩🇴"},
+  {id:"vida",label:"Vida",emoji:"🌈"},
+  {id:"trabajo",label:"Trabajo",emoji:"💼"},
+  {id:"familia",label:"Familia",emoji:"🏠"},
+  {id:"amistad",label:"Amistad",emoji:"🤝"},
+  {id:"amor",label:"Amor",emoji:"❤️"},
+  {id:"sabiduría",label:"Sabiduría",emoji:"📚"},
+  {id:"fe",label:"Fe",emoji:"🙏"},
+  {id:"campo",label:"Del Campo",emoji:"🤠"},
+  {id:"picaresca",label:"Picaresca",emoji:"😏"},
+  {id:"suerte",label:"Suerte/Azar",emoji:"🎲"},
+  {id:"advertencia",label:"Advertencia",emoji:"⚠️"},
+];
+
+const CC={
+  vida:{bg:"#FFF3E0",text:"#E65100",dark:"#FF9800"},
+  trabajo:{bg:"#E8F5E9",text:"#2E7D32",dark:"#4CAF50"},
+  familia:{bg:"#FCE4EC",text:"#880E4F",dark:"#E91E63"},
+  amistad:{bg:"#E3F2FD",text:"#0D47A1",dark:"#2196F3"},
+  amor:{bg:"#FCE4EC",text:"#C62828",dark:"#EF5350"},
+  "sabiduría":{bg:"#EDE7F6",text:"#4527A0",dark:"#7C4DFF"},
+  fe:{bg:"#FFF8E1",text:"#F57F17",dark:"#FFD600"},
+  campo:{bg:"#EFEBE9",text:"#4E342E",dark:"#8D6E63"},
+  picaresca:{bg:"#F1F8E9",text:"#33691E",dark:"#7CB342"},
+  suerte:{bg:"#E0F7FA",text:"#006064",dark:"#00BCD4"},
+  advertencia:{bg:"#FFEBEE",text:"#B71C1C",dark:"#F44336"}
+};
+
+// ── STATE ──
+let tab='inicio', cur=0, showSig=false, expandedId=null, activeCat='todos', searchQ='';
+let favs=[], stats={visto:0,compartido:0, trivia_intentos:0, trivia_aciertos:0, racha_trivia:0, max_racha:0}, showInstall=true;
+let deferredPrompt=null;
+
+// TRIVIA STATE
+let triviaCur={refran:null, parteOculta:'', opciones:[], respondido:false, elegida:null, correcta:null};
+
+function load(){
+  try{ favs=JSON.parse(localStorage.getItem('rd_favs')||'[]'); }catch{}
+  try{ stats=JSON.parse(localStorage.getItem('rd_stats')||'{"visto":0,"compartido":0,"trivia_intentos":0,"trivia_aciertos":0,"racha_trivia":0,"max_racha":0}'); }catch{}
+  if(!stats.trivia_intentos){
+    stats.trivia_intentos=0; stats.trivia_aciertos=0; stats.racha_trivia=0; stats.max_racha=0;
+  }
+  try{ cur=parseInt(localStorage.getItem('rd_cur')||todayIdx()); }catch{ cur=todayIdx(); }
+  try{ showInstall=localStorage.getItem('rd_noinstall')!=='1'; }catch{}
+}
+function save(){
+  localStorage.setItem('rd_favs',JSON.stringify(favs));
+  localStorage.setItem('rd_stats',JSON.stringify(stats));
+  localStorage.setItem('rd_cur',cur);
+}
+function todayIdx(){
+  const d=new Date();
+  return (d.getFullYear()*366+d.getMonth()*31+d.getDate())%REFRANES.length;
+}
+
+function showToast(){
+  const t=document.getElementById('toast');
+  t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2500);
+}
+
+function shareRefran(r){
+  const txt=`"${r.texto}" ${r.emoji}\n\n💡 ${r.sig}\n\n— Refranes Dominicanos 🇩🇴`;
+  if(navigator.share){navigator.share({title:'Refranes Dominicanos',text:txt}).catch(()=>{});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt);}
+  showToast();
+  stats.compartido++;save();
+  render();
+}
+
+// NUEVA FUNCIÓN: Reproducción de voz usando Web Speech API
+function escucharRefran(r) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel(); // Cancela cualquier reproducción previa
+    const textoAEscuchar = `${r.texto}. Significado: ${r.sig}`;
+    const utterance = new SpeechSynthesisUtterance(textoAEscuchar);
+    utterance.lang = 'es-ES'; // Configuración del idioma
+    utterance.rate = 0.9;     // Velocidad ligeramente más pausada
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert("Tu dispositivo o navegador no soporta la reproducción de voz.");
+  }
+}
+
+const TABS=[
+  {id:'inicio',icon:'🏠',label:'Inicio'},
+  {id:'explorar',icon:'🔍',label:'Explorar'},
+  {id:'trivia',icon:'🎮',label:'Trivia'},
+  {id:'favoritos',icon:'❤️',label:'Favoritos'},
+  {id:'logros',icon:'🏆',label:'Logros'},
+];
+
+function renderTabBar(){
+  document.getElementById('tabBar').innerHTML=TABS.map(t=>`
+    <button class="tab${tab===t.id?' on':''}" onclick="setTab('${t.id}')">
+      <span class="ti">${t.icon}</span>
+      <span class="tl">${t.label}</span>
+    </button>`).join('');
+}
+
+function render(){
+  renderTabBar();
+  document.getElementById('headerCount').innerText = `${REFRANES.length} refranes`;
+  const m=document.getElementById('main');
+  if(tab==='inicio')    m.innerHTML=renderInicio();
+  if(tab==='explorar')  m.innerHTML=renderExplorar();
+  if(tab==='trivia')    m.innerHTML=renderTrivia();
+  if(tab==='favoritos') m.innerHTML=renderFavoritos();
+  if(tab==='logros')    m.innerHTML=renderLogros();
+}
+
+function setTab(t){
+  tab=t; 
+  expandedId=null;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel(); // Detener voz al cambiar de pestaña
+  if(t==='trivia' && !triviaCur.refran) nextTrivia();
+  render();
+}
+
+function renderInicio(){
+  const r=REFRANES[cur];
+  const cc=CC[r.cat]||CC.vida;
+  const isFav=favs.includes(r.id);
+
+  const installBanner = (showInstall && deferredPrompt) ? `
+    <div class="install-banner">
+      <span style="font-size:28px">📱</span>
+      <div class="ib-text"><strong>Instala la app</strong><br>Úsala sin internet, como app nativa</div>
+      <button class="ib-btn" onclick="installApp()">Instalar</button>
+      <button class="ib-close" onclick="hideInstall()">✕</button>
+    </div>` : '';
+
+  return `<div class="tc">
+    ${installBanner}
+    <div class="day-banner">✨ Refrán #${cur+1} de ${REFRANES.length}</div>
+    <div class="cw" id="cw">
+      <div class="rcard" onclick="toggleSig()">
+        <div class="rcard-top">
+          <span class="chip" style="background:${cc.bg};color:${cc.text}">${r.emoji} ${r.cat}</span>
+          <button class="fbtn${isFav?' on':''}" onclick="event.stopPropagation();toggleFav(${r.id})">${isFav?'❤️':'🤍'}</button>
+        </div>
+        <p class="rtexto">"${r.texto}"</p>
+        ${showSig?`<div class="rsig"><div class="sdiv"></div><p class="stext">💡 ${r.sig}</p></div>`:''}
+        <p class="chint">${showSig?'Toca para ocultar':'Toca para ver el significado'}</p>
+        <div class="abar" style="background:${cc.dark}"></div>
+      </div>
+    </div>
+    <div class="ctrls">
+      <button class="cbtn sec" onclick="goRefran(-1)">‹ Anterior</button>
+      <button class="cbtn pri" onclick="shareRefran(REFRANES[${cur}])">📤 Compartir</button>
+      <!-- NUEVO BOTÓN DE VOZ INTEGRADO -->
+      <button class="cbtn sec" style="flex:0.5; font-size:18px;" onclick="escucharRefran(REFRANES[${cur}])" title="Escuchar refrán">🔊</button>
+      <button class="cbtn sec" onclick="goRefran(1)">Siguiente ›</button>
+    </div>
+    <button class="rbtn" onclick="randomRefran()">🎲 Uno al azar</button>
+    <div class="srow">
+      <div class="scell"><span class="snum">${stats.visto}</span><span class="slbl">vistos</span></div>
+      <div class="scell"><span class="snum">${favs.length}</span><span class="slbl">favoritos</span></div>
+      <div class="scell"><span class="snum">${stats.compartido}</span><span class="slbl">compartidos</span></div>
+    </div>
+  </div>`;
+}
+
+function goRefran(d){
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel(); // Detiene el audio en curso al navegar
+  const cw=document.getElementById('cw');
+  if(cw) cw.classList.add(d>0?'er':'el');
+  setTimeout(()=>{
+    cur=(cur+d+REFRANES.length)%REFRANES.length;
+    showSig=false;
+    stats.visto++;save();render();
+  },180);
+}
+function randomRefran(){
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel(); // Detiene el audio en curso
+  cur=Math.floor(Math.random()*REFRANES.length);
+  showSig=false;stats.visto++;save();render();
+}
+function toggleSig(){showSig=!showSig;render();}
+function toggleFav(id){
+  const i=favs.indexOf(id);
+  if(i>-1) favs.splice(i,1); else favs.push(id);
+  save();render();
+}
+
+function renderExplorar(){
+  const filtered=REFRANES.filter(r=>{
+    const mc=activeCat==='todos'||r.cat===activeCat;
+    const mq=!searchQ||r.texto.toLowerCase().includes(searchQ.toLowerCase())||r.sig.toLowerCase().includes(searchQ.toLowerCase());
+    return mc&&mq;
+  });
+  const items=filtered.map(r=>{
+    const exp=expandedId===r.id;
+    const isFav=favs.includes(r.id);
+    return `<div class="li" onclick="toggleExp(${r.id})">
+      <div class="lirow">
+        <span class="lem">${r.emoji}</span>
+        <p class="ltxt">"${r.texto}"</p>
+        <button class="fbtn sm${isFav?' on':''}" onclick="event.stopPropagation();toggleFav(${r.id})">${isFav?'❤️':'🤍'}</button>
+      </div>
+      ${exp?`<p class="lsig">💡 ${r.sig}</p>`:''}
+    </div>`;
+  }).join('');
+
+  return `<div class="tc">
+    <div class="sbox">
+      <span class="si">🔍</span>
+      <input class="sinp" placeholder="Busca un refrán…" value="${searchQ}" oninput="onSearch(this.value)" />
+      ${searchQ?`<button class="sclr" onclick="onSearch('')">✕</button>`:''}
+    </div>
+    <div class="cscroll">${CATS.map(c=>`<button class="cpill${activeCat===c.id?' on':''}" onclick="setCat('${c.id}')">${c.emoji} ${c.label}</button>`).join('')}</div>
+    <p class="rcnt">${filtered.length} refrán${filtered.length!==1?'es':''}</p>
+    <div class="rlist">${items||'<div class="empty"><p>😕 No encontramos nada</p><p style="font-size:14px;margin-top:6px;opacity:.6">Prueba con otra palabra</p></div>'}</div>
+  </div>`;
+}
+function onSearch(v){searchQ=v;render();}
+function setCat(c){activeCat=c;render();}
+function toggleExp(id){expandedId=expandedId===id?null:id;render();}
+
+// ── TAB TRIVIA ──
+function nextTrivia(){
+  const r = REFRANES[Math.floor(Math.random() * REFRANES.length)];
+  const palabras = r.texto.split(' ');
+  const mitad = Math.floor(palabras.length / 2);
+  
+  const ocultaInicio = Math.random() > 0.5;
+  let textoPregunta = '';
+  let respuestaCorrecta = '';
+
+  if(ocultaInicio){
+    textoPregunta = '<span class="triv-blank">...</span> ' + palabras.slice(mitad).join(' ');
+    respuestaCorrecta = palabras.slice(0, mitad).join(' ');
+  } else {
+    textoPregunta = palabras.slice(0, mitad).join(' ') + ' <span class="triv-blank">...</span>';
+    respuestaCorrecta = palabras.slice(mitad).join(' ');
+  }
+
+  let falsas = [];
+  while(falsas.length < 2){
+    let rf = REFRANES[Math.floor(Math.random() * REFRANES.length)];
+    if(rf.id !== r.id){
+      let pFalsas = rf.texto.split(' ');
+      let mFalsas = Math.floor(pFalsas.length / 2);
+      let opcionFalsa = ocultaInicio ? pFalsas.slice(0, mFalsas).join(' ') : pFalsas.slice(mFalsas).join(' ');
+      if(opcionFalsa && !falsas.includes(opcionFalsa) && opcionFalsa !== respuestaCorrecta){
+        falsas.push(opcionFalsa);
+      }
+    }
+  }
+
+  let opciones = [respuestaCorrecta, ...falsas].sort(() => Math.random() - 0.5);
+
+  triviaCur = {
+    refran: r,
+    textoPregunta: textoPregunta,
+    opciones: opciones,
+    respondido: false,
+    elegida: null,
+    correcta: respuestaCorrecta
+  };
+}
+
+function responderTrivia(idxOp){
+  if(triviaCur.respondido) return;
+  triviaCur.respondido = true;
+  triviaCur.elegida = idxOp;
+  
+  stats.trivia_intentos++;
+  if(triviaCur.opciones[idxOp] === triviaCur.correcta){
+    triviaCur.esCorrecto = true;
+    stats.trivia_aciertos++;
+    stats.racha_trivia++;
+    if(stats.racha_trivia > stats.max_racha) {
+      stats.max_racha = stats.racha_trivia;
+    }
+  } else {
+    triviaCur.esCorrecto = false;
+    stats.racha_trivia = 0;
+  }
+  save();
+  render();
+}
+
+function renderTrivia(){
+  const t = triviaCur;
+  if(!t.refran) return '';
+
+  const listaOpciones = t.opciones.map((op, idx) => {
+    let clase = '';
+    if(t.respondido){
+      if(op === t.correcta) clase = ' correct';
+      else if(t.elegida === idx) clase = ' wrong';
+    }
+    return `<button class="triv-opt${clase}" onclick="responderTrivia(${idx})">${op}</button>`;
+  }).join('');
+
+  return `<div class="tc">
+    <div class="day-banner" style="background:linear-gradient(135deg,#002D62,#7B1FA2)">🎮 Trivia de Refranes</div>
+    <div class="rcard" style="cursor:default">
+      <p class="triv-q">"${t.textoPregunta}"</p>
+      <div class="triv-opts">${listaOpciones}</div>
+      
+      ${t.respondido ? `
+        <div class="rsig" style="margin-top:20px;">
+          <div class="sdiv"></div>
+          <p class="stext" style="font-weight:600; color:${t.esCorrecto ? '#2E7D32':'#C62828'}">
+            ${t.esCorrecto ? '¡Excelente, eres todo un sabio! 🎉' : '¡Ay ombe! Casi lo logras... 🪓'}
+          </p>
+          <p class="stext" style="margin-top:8px;"><strong>Refrán completo:</strong><br>"${t.refran.texto}"</p>
+          <p class="stext" style="margin-top:6px; font-size:13px;">💡 <em>${t.refran.sig}</em></p>
+        </div>
+      ` : ''}
+    </div>
+
+    <button class="cbtn pri" style="width:100%;" onclick="nextTrivia(); render();">
+      ${t.respondido ? 'Siguiente Desafío ›' : '🎲 Cambiar Refrán'}
+    </button>
+
+    <div class="srow" style="margin-top:10px">
+      <div class="scell"><span class="snum" style="color:#002D62">${stats.trivia_intentos}</span><span class="slbl">Jugados</span></div>
+      <div class="scell"><span class="snum" style="color:#7B1FA2">${stats.trivia_aciertos}</span><span class="slbl">Aciertos</span></div>
+      <div class="scell"><span class="snum" style="color:#E65100">${stats.racha_trivia} 🔥</span><span class="slbl">Racha</span></div>
+    </div>
+  </div>`;
+}
+
+function renderFavoritos(){
+  const fr=REFRANES.filter(r=>favs.includes(r.id));
+  if(!fr.length) return `<div class="tc"><div class="empty big"><div class="eico">🤍</div><p class="etit">Sin favoritos aún</p><p class="esub">Toca el corazón en cualquier refrán<br>para guardarlo aquí.</p></div></div>`;
+  const items=fr.map(r=>{
+    const exp=expandedId===r.id;
+    return `<div class="li" onclick="toggleExp(${r.id})">
+      <div class="lirow">
+        <span class="lem">${r.emoji}</span>
+        <p class="ltxt">"${r.texto}"</p>
+        <div style="display:flex;gap:4px">
+          <button class="ibtn" onclick="event.stopPropagation();shareRefran(REFRANES.find(x=>x.id===${r.id}))">📤</button>
+          <button class="fbtn sm on" onclick="event.stopPropagation();toggleFav(${r.id})">❤️</button>
+        </div>
+      </div>
+      ${exp?`<p class="lsig">💡 ${r.sig}</p>`:''}
+    </div>`;
+  }).join('');
+  return `<div class="tc"><p class="slbl2">${fr.length} guardado${fr.length!==1?'s':''}</p><div class="rlist">${items}</div></div>`;
+}
+
+// ── TAB LOGROS ──
+function renderLogros(){
+  const LOGROS=[
+    {icon:'🌱',title:'Pichón de Sabio',desc:'Viste tu primer refrán.',done:stats.visto>=1},
+    {icon:'📚',title:'Conocedor Criollo',desc:'Leíste 25 refranes.',done:stats.visto>=25},
+    {icon:'🧠',title:'Filósofo del Conuco',desc:'Leíste 50 refranes.',done:stats.visto>=50},
+    {icon:'🦉',title:'Intelectual de Codia',desc:'Leíste 75 refranes.',done:stats.visto>=75},
+    {icon:'👑',title:'Cacique de la Lengua',desc:`Viste los ${REFRANES.length} refranes de la app.`,done:stats.visto>=REFRANES.length},
+    
+    {icon:'🎯',title:'Primer Chepazo',desc:'Acertaste 1 trivia.',done:stats.trivia_aciertos>=1},
+    {icon:'⚡',title:'Afilando el Ojo',desc:'Acertaste 10 trivias.',done:stats.trivia_aciertos>=10},
+    {icon:'🎓',title:'Cerebro de Oro',desc:'Acertaste 25 trivias.',done:stats.trivia_aciertos>=25},
+    {icon:'🔥',title:'Veterano del Chisme',desc:'Acertaste 50 trivias.',done:stats.trivia_aciertos>=50},
+    
+    {icon:'👟',title:'Racha Activa',desc:'Llega a 3 aciertos seguidos.',done:stats.max_racha>=3},
+    {icon:'🚀',title:'Imparable',desc:'Llega a 7 aciertos seguidos.',done:stats.max_racha>=7},
+    {icon:'🏆',title:'El papá de las Trivias',desc:'Logra 12 aciertos seguidos.',done:stats.max_racha>=12},
+    
+    {icon:'❤️',title:'Buen Corazón',desc:'Guardaste tu primer favorito.',done:favs.length>=1},
+    {icon:'💖',title:'Coleccionista',desc:'Guardaste 15 favoritos.',done:favs.length>=15},
+    {icon:'📤',title:'Bocón Educado',desc:'Compartiste un refrán.',done:stats.compartido>=1},
+    {icon:'📣',title:'Embajador Dominicano',desc:'Compartiste 10 refranes.',done:stats.compartido>=10},
+  ];
+  const done=LOGROS.filter(l=>l.done).length;
+  const pct=done/LOGROS.length;
+  const r=34, circ=2*Math.PI*r;
+  const grid=LOGROS.map(l=>`
+    <div class="lcard${l.done?' done':' locked'}">
+      <span class="lico">${l.done?l.icon:'🔒'}</span>
+      <p class="ltitle">${l.title}</p>
+      <p class="ldesc">${l.desc}</p>
+    </div>`).join('');
+  return `<div class="tc">
+    <div class="lhdr">
+      <svg viewBox="0 0 80 80" width="80" height="80">
+        <circle cx="40" cy="40" r="${r}" fill="none" stroke="var(--border)" stroke-width="6"/>
+        <circle cx="40" cy="40" r="${r}" fill="none" stroke="#CE1126" stroke-width="6"
+          stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-pct)}"
+          stroke-linecap="round" transform="rotate(-90 40 40)"
+          style="transition:stroke-dashoffset .6s ease"/>
+        <text x="40" y="46" text-anchor="middle" font-size="16" font-weight="600" fill="#CE1126">${done}/${LOGROS.length}</text>
+      </svg>
+      <div>
+        <p class="ltit">Tus logros</p>
+        <p class="lsub">${done===LOGROS.length?'¡Eres leyenda total! 🎉':`${LOGROS.length-done} por desbloquear`}</p>
+      </div>
+    </div>
+    <div class="lgrid">${grid}</div>
+  </div>`;
+}
+
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  render();
+});
+function installApp(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(()=>{deferredPrompt=null;render();});
+  }
+}
+function hideInstall(){
+  showInstall=false;
+  localStorage.setItem('rd_noinstall','1');
+  render();
+}
+
+if('serviceWorker' in navigator){
+  const sw=`const C='rd-v1';const A=['./'];
+self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(A)));self.skipWaiting();});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim();});
+self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});`;
+  const blob=new Blob([sw],{type:'application/javascript'});
+  const url=URL.createObjectURL(blob);
+  navigator.serviceWorker.register(url).catch(()=>{});
+}
+
+// ── INIT ──
+load();
+stats.visto++;save();
+render();
+setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
+</script>
+</body>
+</html>
