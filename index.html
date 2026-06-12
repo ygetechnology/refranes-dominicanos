@@ -133,6 +133,7 @@ button:active{transform:scale(0.96)}
 .install-banner{background:linear-gradient(135deg,var(--g),var(--gd));border-radius:var(--rs);padding:14px 16px;display:flex;align-items:center;gap:12px;color:#fff;box-shadow:0 4px 15px rgba(0,47,108,0.25)}
 .ib-btn{background:var(--accent);color:var(--gd);border:none;border-radius:var(--rs);padding:8px 14px;font-size:12px;font-weight:700;white-space:nowrap}
 </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3488261319367214" crossorigin="anonymous"></script>  
 </head>
 <body>
 
@@ -735,5 +736,67 @@ stats.visto++;save();
 render();
 setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
 </script>
+<div style="text-align: center; margin: 15px 0; min-height: 50px;">
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:320px;height:50px"
+       data-ad-client="ca-pub-3488261319367214"
+       data-ad-slot="7287425668"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div> 
+  <!-- ======================================================= -->
+  <!--               BLOQUE DE PUBLICIDAD ADMOB                -->
+  <!-- ======================================================= -->
+
+  <!-- 1. Banner Inferior Fijo -->
+  <div id="admob-banner-container" style="text-align: center; margin-top: 20px; min-height: 50px; width: 100%;">
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:320px;height:50px"
+         data-ad-client="ca-pub-3488261319367214"
+         data-ad-slot="7287425668"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <!-- 2. Lógica del Intersticial vinculada a los Logros -->
+  <script>
+    // Precarga del anuncio al abrir la app
+    function cargarAnuncioIntersticial() {
+      if (window.adsbygoogle) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-3488261319367214",
+          enable_page_level_ads: true,
+          overlays: { bottom: true }
+        });
+      }
+    }
+    document.addEventListener("DOMContentLoaded", cargarAnuncioIntersticial);
+
+    // Inyección automática en la función renderLogros
+    // Este truco intercepta la función existente para lanzar el anuncio sin romper tu código
+    if (typeof renderLogros === 'function') {
+      const funcionOriginalLogros = renderLogros;
+      renderLogros = function() {
+        // Ejecuta lo que ya hacía tu app originalmente
+        funcionOriginalLogros();
+        
+        // Dispara el anuncio a pantalla completa de AdMob
+        if (window.adsbygoogle && typeof window.adsbygoogle.push === "function") {
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({
+              params: { google_ad_channel: "2749414859" }
+            });
+            console.log("Intersticial de AdMob activado con éxito.");
+          } catch (e) {
+            console.error("El anuncio no pudo mostrarse:", e);
+          }
+        }
+      };
+    }
+  </script>
+
+  <!-- ======================================================= -->
 </body>
 </html>
