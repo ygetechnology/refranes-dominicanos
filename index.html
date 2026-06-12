@@ -798,5 +798,57 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
   </script>
 
   <!-- ======================================================= -->
+  <!-- ======================================================= -->
+  <!--             CONFIGURACIÓN SOPORTE SIN CONEXIÓN          -->
+  <!-- ======================================================= -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      const codigoSW = `
+        const CACHE_NAME = 'aplatanao-cache-v1';
+        const ARCHIVOS_CLAVE = [
+          './',
+          './index.html',
+          './manifest.json',
+          './icons/icon-192.png',
+          './icons/icon-512.png'
+        ];
+
+        // 1. Instalar y guardar archivos clave en la memoria
+        self.addEventListener('install', evento => {
+          evento.waitUntil(
+            caches.open(CACHE_NAME).then(cache => cache.addAll(ARCHIVOS_CLAVE))
+          );
+          self.skipWaiting();
+        });
+
+        // 2. Limpiar cachés viejas
+        self.addEventListener('activate', evento => {
+          evento.waitUntil(
+            caches.keys().then(claves => Promise.all(
+              claves.filter(c => c !== CACHE_NAME).map(c => caches.delete(c))
+            ))
+          );
+          self.clients.claim();
+        });
+
+        // 3. Interceptar peticiones: modo offline
+        self.addEventListener('fetch', evento => {
+          evento.respondWith(
+            caches.match(evento.request).then(respuesta => {
+              return respuesta || fetch(evento.request).catch(() => {
+                return caches.match('./index.html');
+              });
+            })
+          );
+        });
+      `;
+
+      // Registrar el Service Worker
+      const blob = new Blob([codigoSW], { type: 'application/javascript' });
+      navigator.serviceWorker.register(URL.createObjectURL(blob))
+        .then(() => console.log("Soporte sin conexión activado correctamente."))
+        .catch(error => console.error("Error al activar soporte offline:", error));
+    }
+  </script>
 </body>
 </html>
