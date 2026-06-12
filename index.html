@@ -34,6 +34,7 @@ html,body,#app{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe U
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 button:active{transform:scale(0.96)}
 ::-webkit-scrollbar{width:0}
+
 /* SPLASH DE LA BANDERA */
 #splash{position:fixed;inset:0;z-index:999;background:linear-gradient(135deg, var(--g) 0%, var(--g) 45%, #fff 45%, #fff 55%, var(--gl) 55%, var(--gl) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .5s}
 #splash.hide{opacity:0;pointer-events:none}
@@ -41,23 +42,33 @@ button:active{transform:scale(0.96)}
 #splash h1{color:#fff;font-size:26px;font-weight:800;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,0.5);background:rgba(0,0,0,0.2);padding:4px 16px;border-radius:20px}
 #splash p{color:#fff;font-size:14px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.4)}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+
 /* HEADER CON GRADIENTE DE LA BANDERA */
 .hdr{background:linear-gradient(135deg, var(--g), var(--gl));color:#fff;padding-top:calc(var(--safe-top) + 12px);flex-shrink:0;box-shadow:0 4px 15px rgba(0,0,0,.15)}
 .hdr-top{display:flex;align-items:center;gap:8px;padding:0 16px 10px}
 .hdr-title{font-size:20px;font-weight:800;flex:1;letter-spacing:.5px;text-shadow:0 1px 3px rgba(0,0,0,0.2)}
 .hdr-cnt{font-size:12px;font-weight:600;color:var(--accent);background:rgba(255,255,255,.15);padding:4px 10px;border-radius:20px;backdrop-filter:blur(5px)}
+
 /* TABS */
 .tabs{display:flex;border-top:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,0.1)}
 .tab{flex:1;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(255,255,255,.65);font-size:11px;transition:color .2s,background .2s}
 .tab:active{transform:scale(1);background:rgba(255,255,255,.1)}
 .tab.on{color:var(--accent);background:rgba(0,0,0,.15);font-weight:600}
 .ti{font-size:20px}.tl{font-size:10px;letter-spacing:.3px}
+
 /* MAIN */
-.main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--safe-bottom)+16px)}
+.main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--safe-bottom) + 16px)}
 .tc{padding:16px;display:flex;flex-direction:column;gap:12px;animation:sU .35s ease both}
 @keyframes sU{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ANIMACIÓN CAMBIO DE TARJETA */
+.cw { transition: transform 0.15s ease, opacity 0.15s ease; }
+.cw.el { transform: translateX(-20px); opacity: 0; }
+.cw.er { transform: translateX(20px); opacity: 0; }
+
 /* BANNER DIARIO */
 .day-banner{background:linear-gradient(135deg, #FF9100, #E65100);border-radius:var(--rs);padding:9px 14px;text-align:center;color:#fff;font-size:13px;font-weight:700;letter-spacing:.5px;box-shadow:0 3px 8px rgba(230,81,0,0.2)}
+
 /* TARJETAS */
 .rcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s, box-shadow .15s;user-select:none;box-shadow:0 4px 12px rgba(0,47,108,0.04)}
 .rcard:active{transform:scale(0.98);box-shadow:0 2px 6px rgba(0,47,108,0.02)}
@@ -71,21 +82,24 @@ button:active{transform:scale(0.96)}
 .stext{font-size:15px;color:var(--text);line-height:1.6;text-align:center;font-weight:500}
 .chint{font-size:11px;color:var(--gl);font-weight:600;text-align:center;opacity:.85;margin-top:8px;letter-spacing:.3px}
 .abar{position:absolute;bottom:0;left:0;right:0;height:5px}
+
 /* FAVORITOS BUTTON */
 .fbtn{font-size:22px;padding:4px;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;transition:transform .2s;background:rgba(206,17,38,0.05)}
 .fbtn:active,.fbtn.on{animation:pop .3s ease}
 .fbtn.on{background:rgba(206,17,38,0.1)}
 .fbtn.sm{font-size:16px;width:30px;height:30px}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
+
 /* TRIVIA */
 .triv-q{font-size:20px;font-weight:700;text-align:center;padding:15px 0;line-height:1.5;color:var(--g)}
 @media(prefers-color-scheme:dark){.triv-q{color:#fff}}
 .triv-blank{color:var(--gl);border-bottom:3px dashed var(--gl);padding:0 8px;font-style:normal}
 .triv-opts{display:flex;flex-direction:column;gap:10px;margin-top:10px}
-.triv-opt{background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:14px 16px;text-align:left;font-size:15px;font-weight:600;transition:all .2s;color:var(--text);box-shadow:0 2px 5px rgba(0,0,0,0.02)}
+.triv-opt{background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:14px 16px;text-align:left;font-size:15px;font-weight:600;transition:all .2s;color:var(--text);box-shadow:0 2px 5px rgba(0,0,0,0.02);width:100%}
 .triv-opt:active{background:rgba(0,47,108,0.05)}
 .triv-opt.correct{background:#E8F5E9;border-color:#2E7D32;color:#2E7D32;box-shadow:0 3px 8px rgba(46,125,50,0.15)}
 .triv-opt.wrong{background:#FFEBEE;border-color:#C62828;color:#C62828;box-shadow:0 3px 8px rgba(198,40,40,0.15)}
+
 /* CONTROLES / BOTONES */
 .ctrls{display:flex;gap:8px}
 .cbtn{flex:1;padding:14px 10px;border-radius:var(--rs);font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;transition:transform .15s,opacity .15s;box-shadow:0 3px 8px rgba(0,0,0,0.05)}
@@ -95,43 +109,60 @@ button:active{transform:scale(0.96)}
 .cbtn:active{transform:scale(0.97);opacity:.9}
 .rbtn{width:100%;padding:12px;border-radius:var(--rs);font-size:14px;font-weight:700;color:var(--g);border:2px dashed var(--g);background:transparent;letter-spacing:.5px;text-transform:uppercase}
 @media(prefers-color-scheme:dark){.rbtn{color:var(--accent);border-color:var(--accent)}}
+
 /* ESTADISTICAS */
 .srow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .scell{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 3px 6px rgba(0,0,0,0.02)}
 .snum{font-size:24px;font-weight:800;color:var(--g)}
 @media(prefers-color-scheme:dark){.snum{color:var(--accent)}}
 .slbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+
 /* SEARCH BOX */
-.sbox{background:var(--card);border:1.5px solid var(--g);border-radius:50px;display:flex;align-items:center;padding:0 16px;gap:8px;box-shadow:0 3px 8px rgba(0,47,108,0.05)}
+.sbox{background:var(--card);border:1.5px solid var(--g);border-radius:50px;display:flex;align-items:center;padding:0 16px;gap:8px;box-shadow:0 3px 8px rgba(0,47,108,0.05);width:100%}
 @media(prefers-color-scheme:dark){.sbox{border-color:var(--border)}}
 .si{font-size:16px;color:var(--g);opacity:.7}
 .sinp{flex:1;border:none;background:transparent;padding:12px 0;font-size:15px;color:var(--text);outline:none;font-family:inherit;font-weight:500}
 .sinp::placeholder{color:var(--muted);opacity:.7}
+.sclr{border:none;background:none;font-size:14px;color:var(--muted);cursor:pointer}
+
 /* CATEGORÍAS */
-.cscroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cscroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;width:100%}
+.cscroll::-webkit-scrollbar{display:none}
 .cpill{flex-shrink:0;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;background:var(--card);color:var(--text);border:1.5px solid var(--border);white-space:nowrap;transition:all .15s;box-shadow:0 2px 5px rgba(0,0,0,0.02)}
 .cpill.on{background:var(--g);color:#fff;border-color:var(--g);box-shadow:0 3px 8px rgba(0,47,108,0.25)}
+
 /* LISTAS */
 .rcnt{font-size:12px;font-weight:600;color:var(--gl);padding-left:4px;text-transform:uppercase;letter-spacing:.5px}
 .slbl2{font-size:12px;color:var(--g);font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding-left:4px}
-.rlist{display:flex;flex-direction:column;background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 12px rgba(0,0,0,0.03)}
+.rlist{display:flex;flex-direction:column;background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 12px rgba(0,0,0,0.03);width:100%}
 .li{padding:16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
 .li:active{background:rgba(0,47,108,0.03)}
+.lirow{display:flex;align-items:center;gap:10px;width:100%}
+.lem{font-size:20px;flex-shrink:0}
 .ltxt{flex:1;font-size:15px;font-weight:600;color:var(--text);line-height:1.45}
 .lsig{font-size:14px;color:var(--muted);line-height:1.5;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);font-weight:500}
+.empty{text-align:center;padding:30px;color:var(--muted)}
+.ibtn{font-size:16px;background:none;border:none;cursor:pointer}
+
 /* LOGROS */
-.lhdr{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(0,0,0,0.02)}
+.lhdr{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 12px rgba(0,0,0,0.02);width:100%}
 .ltit{font-size:18px;font-weight:700;color:var(--g)}
 @media(prefers-color-scheme:dark){.ltit{color:#fff}}
-.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
 .lcard{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;transition:transform .15s;box-shadow:0 2px 6px rgba(0,0,0,0.02)}
 .lcard.done{border-color:var(--gl);background:rgba(206,17,38,.04)}
+.lcard.locked{opacity:0.6}
+.ltitle{font-size:12px;font-weight:700;margin-top:2px}
+.ldesc{font-size:10px;color:var(--muted);line-height:1.2}
+
 /* TOAST RE-ESTILIZADO */
-.toast{position:fixed;bottom:calc(var(--safe-bottom)+24px);left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg, var(--g), var(--gd));color:#fff;padding:14px 24px;border-radius:30px;font-size:14px;font-weight:700;letter-spacing:.3px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:100;white-space:nowrap;box-shadow:0 6px 25px rgba(0,47,108,0.4);border:1px solid rgba(255,255,255,0.1)}
+.toast{position:fixed;bottom:calc(var(--safe-bottom) + 24px);left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg, var(--g), var(--gd));color:#fff;padding:14px 24px;border-radius:30px;font-size:14px;font-weight:700;letter-spacing:.3px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:100;white-space:nowrap;box-shadow:0 6px 25px rgba(0,47,108,0.4);border:1px solid rgba(255,255,255,0.1)}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
 /* INSTALL BANNER */
-.install-banner{background:linear-gradient(135deg,var(--g),var(--gd));border-radius:var(--rs);padding:14px 16px;display:flex;align-items:center;gap:12px;color:#fff;box-shadow:0 4px 15px rgba(0,47,108,0.25)}
+.install-banner{background:linear-gradient(135deg,var(--g),var(--gd));border-radius:var(--rs);padding:14px 16px;display:flex;align-items:center;gap:12px;color:#fff;box-shadow:0 4px 15px rgba(0,47,108,0.25);width:100%;position:relative}
 .ib-btn{background:var(--accent);color:var(--gd);border:none;border-radius:var(--rs);padding:8px 14px;font-size:12px;font-weight:700;white-space:nowrap}
+.ib-close{position:absolute;top:5px;right:8px;color:#fff;font-size:12px;background:none;border:none}
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3488261319367214" crossorigin="anonymous"></script>  
 </head>
@@ -224,7 +255,7 @@ const REFRANES=[
 {id:68,texto:"Donde hubo fuego, cenizas quedan.",sig:"Los grandes amores o pasiones siempre dejan algún recuerdo.",cat:"amor",emoji:"🔥"},
 {id:69,texto:"Gato escaldado del agua fría huye.",sig:"Quien ha sufrido un daño se vuelve desconfiado en el futuro.",cat:"advertencia",emoji:"🙀"},
 {id:70,texto:"La soga quiebra por lo más delgado.",sig:"Los hilos de los problemas siempre afectan primero a los débiles.",cat:"vida",emoji:"🪢"},
-{id:71,texto:"Un clavo saca otro clavo.",sig:"A veces un nuevo amor o interés ayuda a olvidar el anterior.",cat:"amor",emoji:"🔨"},
+{id:71,shift:true,texto:"Un clavo saca otro clavo.",sig:"A veces un nuevo amor o interés ayuda a olvidar el anterior.",cat:"amor",emoji:"🔨"},
 {id:72,texto:"Quien mal anda, mal acaba.",sig:"Vivir fuera de la ley o las buenas costumbres trae mal final.",cat:"advertencia",emoji:"🥀"},
 {id:73,texto:"A lo hecho, pecho.",sig:"Hay que asumir las consecuencias de nuestros actos con valor.",cat:"sabiduría",emoji:"🛡️"},
 {id:74,texto:"Perro viejo latiguea sentado.",sig:"La experiencia permite resolver problemas con el mínimo esfuerzo.",cat:"sabiduría",emoji:"🐕‍🦺"},
@@ -235,7 +266,7 @@ const REFRANES=[
 {id:79,texto:"Mal de muchos, consuelo de tontos.",sig:"Que otros sufran el mismo problema no alivia tu situación real.",cat:"vida",emoji:"🙁"},
 {id:80,texto:"Quien no te conozca, que te compre.",sig:"Se le dice al que intenta aparentar virtudes que no posee.",cat:"picaresca",emoji:"🛍️"},
 {id:81,texto:"El que juega por necesidad, pierde por obligación.",sig:"Arriesgar bienes básicos por desesperación suele terminar muy mal.",cat:"suerte",emoji:"🎲"},
-{id:82,shift:true,texto:"En tierra de ciegos, el tuerto es rey.",sig:"En un entorno de ignorancia, el que sabe un poco destaca fácilmente.",cat:"sabiduría",emoji:"👑"},
+{id:82,texto:"En tierra de ciegos, el tuerto es rey.",sig:"En un entorno de ignorancia, el que sabe un poco destaca fácilmente.",cat:"sabiduría",emoji:"👑"},
 {id:83,texto:"El pez muere por la boca.",sig:"Hablar demasiado o indiscretamente causa nuestra propia ruina.",cat:"advertencia",emoji:"🐟"},
 {id:84,texto:"Quien ríe último, ríe con ventaja.",sig:"Esperar el desenlace real da mejores frutos que celebrar antes.",cat:"picaresca",emoji:"😏"},
 {id:85,texto:"Hacer de tripas corazón.",sig:"Sacar fuerzas y valor de donde no quedan para vencer.",cat:"vida",emoji:"❤️‍🩹"},
@@ -377,14 +408,13 @@ function shareRefran(r){
   render();
 }
 
-// NUEVA FUNCIÓN: Reproducción de voz usando Web Speech API
 function escucharRefran(r) {
   if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel(); // Cancela cualquier reproducción previa
+    window.speechSynthesis.cancel();
     const textoAEscuchar = `${r.texto}. Significado: ${r.sig}`;
     const utterance = new SpeechSynthesisUtterance(textoAEscuchar);
-    utterance.lang = 'es-ES'; // Configuración del idioma
-    utterance.rate = 0.9;     // Velocidad ligeramente más pausada
+    utterance.lang = 'es-ES';
+    utterance.rate = 0.9;
     window.speechSynthesis.speak(utterance);
   } else {
     alert("Tu dispositivo o navegador no soporta la reproducción de voz.");
@@ -421,7 +451,7 @@ function render(){
 function setTab(t){
   tab=t; 
   expandedId=null;
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel(); // Detener voz al cambiar de pestaña
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   if(t==='trivia' && !triviaCur.refran) nextTrivia();
   render();
 }
@@ -457,7 +487,6 @@ function renderInicio(){
     <div class="ctrls">
       <button class="cbtn sec" onclick="goRefran(-1)">‹ Anterior</button>
       <button class="cbtn pri" onclick="shareRefran(REFRANES[${cur}])">📤 Compartir</button>
-      <!-- NUEVO BOTÓN DE VOZ INTEGRADO -->
       <button class="cbtn sec" style="flex:0.5; font-size:18px;" onclick="escucharRefran(REFRANES[${cur}])" title="Escuchar refrán">🔊</button>
       <button class="cbtn sec" onclick="goRefran(1)">Siguiente ›</button>
     </div>
@@ -471,17 +500,18 @@ function renderInicio(){
 }
 
 function goRefran(d){
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel(); // Detiene el audio en curso al navegar
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   const cw=document.getElementById('cw');
   if(cw) cw.classList.add(d>0?'er':'el');
   setTimeout(()=>{
     cur=(cur+d+REFRANES.length)%REFRANES.length;
     showSig=false;
-    stats.visto++;save();render();
+    stats.visto++; save(); render();
+    if(cw) cw.classList.remove('er', 'el');
   },180);
 }
 function randomRefran(){
-  if ('speechSynthesis' in window) window.speechSynthesis.cancel(); // Detiene el audio en curso
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   cur=Math.floor(Math.random()*REFRANES.length);
   showSig=false;stats.visto++;save();render();
 }
@@ -721,21 +751,13 @@ function hideInstall(){
   render();
 }
 
-if('serviceWorker' in navigator){
-  const sw=`const C='rd-v1';const A=['./','./index.html','./manifest.json'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(A)));self.skipWaiting();});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim();});
-self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('./'))));});`;
-  const b=new Blob([sw],{type:'application/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(b));
-}
-
 // ── INIT ──
 load();
 stats.visto++;save();
 render();
 setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
 </script>
+
 <div style="text-align: center; margin: 15px 0; min-height: 50px;">
   <ins class="adsbygoogle"
        style="display:inline-block;width:320px;height:50px"
@@ -745,6 +767,7 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
        (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div> 
+
   <!-- ======================================================= -->
   <!--               BLOQUE DE PUBLICIDAD ADMOB                -->
   <!-- ======================================================= -->
@@ -773,15 +796,12 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
     }
     document.addEventListener("DOMContentLoaded", cargarAnuncioIntersticial);
 
-    // Interceptor mejorado: Pasa los datos originales usando (.apply) para evitar el 'undefined'
+    // CORRECCIÓN DEL INTERCEPTOR: Ahora sí retorna el HTML a la función render()
     if (typeof renderLogros === 'function') {
       const funcionOriginalLogros = renderLogros;
       
       renderLogros = function(...args) {
-        // Ejecuta tu función original pasándole exactamente los parámetros que espera
-        funcionOriginalLogros.apply(this, args);
-        
-        // Dispara el anuncio intersticial de AdMob en paralelo
+        // Dispara el anuncio intersticial de AdMob de fondo
         if (window.adsbygoogle && typeof window.adsbygoogle.push === "function") {
           try {
             (window.adsbygoogle = window.adsbygoogle || []).push({
@@ -792,13 +812,14 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
             console.error("El anuncio no pudo mostrarse:", e);
           }
         }
+        // RETORNA el contenido HTML original indispensable para render()
+        return funcionOriginalLogros.apply(this, args);
       };
     }
   </script>
 
   <!-- ======================================================= -->
-  <!-- ======================================================= -->
-  <!--             CONFIGURACIÓN SOPORTE SIN CONEXIÓN          -->
+  <!--       UNIFICACIÓN SÓLIDA DEL SERVICE WORKER (OFFLINE)    -->
   <!-- ======================================================= -->
   <script>
     if ('serviceWorker' in navigator) {
@@ -807,12 +828,9 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
         const ARCHIVOS_CLAVE = [
           './',
           './index.html',
-          './manifest.json',
-          './icons/icon-192.png',
-          './icons/icon-512.png'
+          './manifest.json'
         ];
 
-        // 1. Instalar y guardar archivos clave en la memoria
         self.addEventListener('install', evento => {
           evento.waitUntil(
             caches.open(CACHE_NAME).then(cache => cache.addAll(ARCHIVOS_CLAVE))
@@ -820,7 +838,6 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
           self.skipWaiting();
         });
 
-        // 2. Limpiar cachés viejas
         self.addEventListener('activate', evento => {
           evento.waitUntil(
             caches.keys().then(claves => Promise.all(
@@ -830,7 +847,6 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
           self.clients.claim();
         });
 
-        // 3. Interceptar peticiones: modo offline
         self.addEventListener('fetch', evento => {
           evento.respondWith(
             caches.match(evento.request).then(respuesta => {
@@ -842,10 +858,9 @@ setTimeout(()=>document.getElementById('splash').classList.add('hide'),1200);
         });
       `;
 
-      // Registrar el Service Worker
       const blob = new Blob([codigoSW], { type: 'application/javascript' });
       navigator.serviceWorker.register(URL.createObjectURL(blob))
-        .then(() => console.log("Soporte sin conexión activado correctamente."))
+        .then(() => console.log("Soporte sin conexión unificado y activado."))
         .catch(error => console.error("Error al activar soporte offline:", error));
     }
   </script>
